@@ -118,10 +118,25 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        arglist = args.split()
+        cls = arglist[0]
+        if cls not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        arglist.pop(0)
+        workingdict = {}
+        if arglist is None:
+            new_instance = HBNBCommand.classes[cls]()
+            storage.save()
+            return
+        for i in arglist:
+            kvpair = i.split(sep="=")
+            try:
+                workingdict[kvpair[0]] = kvpair[1]
+            except IndexError:
+                continue
+        new_instance = HBNBCommand.classes[cls]()
+        new_instance.__dict__.update(workingdict)
         storage.save()
         print(new_instance.id)
         storage.save()
