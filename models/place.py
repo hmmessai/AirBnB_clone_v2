@@ -14,11 +14,11 @@ from sqlalchemy.orm import relationship
 metadata = Base.metadata
 
 place_amenity = Table("place_amenity", metadata,
-        Column("place_id", String(60), ForeignKey("places.id"),
-            nullable=False, primary_key=True),
-        Column("amenity_id", String(60), ForeignKey("amenities.id"),
-            nullable=False, primary_key=True)
-)
+                      Column("place_id", String(60), ForeignKey("places.id"),
+                             nullable=False, primary_key=True),
+                      Column("amenity_id", String(60), nullable=False,
+                             ForeignKey("amenities.id"), primary_key=True)
+                      )
 
 
 class Place(BaseModel, Base):
@@ -44,10 +44,10 @@ class Place(BaseModel, Base):
     amenity_ids = []
 
     if getenv("HBNB_TYPE_STORAGE") == "db":
-        reviews = relationship("Review", cascade='all, delete', 
-                backref="place")
+        reviews = relationship("Review", cascade='all, delete',
+                               backref="place")
         amenities = relationship("Amenity", secondary=place_amenity,
-                viewonly=False)
+                                 viewonly=False)
 
     else:
         @property
@@ -78,9 +78,9 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, amenity_obj):
-             """
-             Method appends ids of amenities linked
-             to an AirBnB, into amenities_id.
-             """
-             if type(amenity_obj) == Amenity:
-                 self.amenity_ids.append(amenity_obj.id)
+            """
+            Method appends ids of amenities linked
+            to an AirBnB, into amenities_id.
+            """
+            if type(amenity_obj) == Amenity:
+                self.amenity_ids.append(amenity_obj.id)
