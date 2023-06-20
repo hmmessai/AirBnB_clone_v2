@@ -9,6 +9,7 @@ from models.place import Place, place_amenity
 from sqlalchemy import Column, String
 from sqlalchemy.ord import relationship
 
+
 class Amenity(BaseModel, Base):
     """
     Creates Table with one
@@ -17,5 +18,6 @@ class Amenity(BaseModel, Base):
     __tablename__ = "amenities"
 
     name = Column(String(128), nullable=False)
-    place_amenities = relationship("Place", secondary=place_amenity,
-            viewonly=False) 
+    place_amenities = relationship(
+        "Place", secondary=place_amenity,
+        viewonly=False)
