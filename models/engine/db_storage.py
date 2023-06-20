@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 import models
-from models.base_model import Base
+from models.base_model import Base, BaseModel
 from models.amenity import Amenity
 from models.city import City
 from models.place import Place
@@ -91,4 +91,4 @@ class DBStorage():
             """
             Close current active session.
             """
-            self.__session.remove()
+            self.__session.close()

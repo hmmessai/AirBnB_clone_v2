@@ -3,10 +3,7 @@
 Module maps class User
 to a Database Table.
 """
-import models
 from models.base_model import BaseModel, Base
-from models.place import Place
-from models.review import Review
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
