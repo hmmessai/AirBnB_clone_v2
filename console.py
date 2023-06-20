@@ -118,10 +118,28 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        arglist = args.split()
+        cls = arglist[0]
+        if cls not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
+        arglist.pop(0)
+        workingdict = {}
+        if arglist is None:
+            new_instance = HBNBCommand.classes[cls]()
+            storage.save()
+            return
+        for i in arglist:
+            kvpair = i.split("=")
+            kvpair[1] = eval(kvpair[1])
+            try:
+                if type(kvpair[1]) is str:
+                    kvpair[1] = kvpair[1].replace("_", " ").replace('"', '\\"')
+                workingdict[kvpair[0]] = kvpair[1]
+            except IndexError:
+                continue
+        new_instance = HBNBCommand.classes[cls]()
+        new_instance.__dict__.update(workingdict)
         storage.save()
         print(new_instance.id)
         storage.save()
@@ -208,10 +226,10 @@ class HBNBCommand(cmd.Cmd):
                 return
             for k, v in storage._FileStorage__objects.items():
                 if k.split('.')[0] == args:
-                    print_list.append(str(v))
+                    print_list.append(v.__str__())
         else:
             for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+                print_list.append(v.__str__())
 
         print(print_list)
 
