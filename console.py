@@ -130,8 +130,11 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
             return
         for i in arglist:
-            kvpair = i.split(sep="=")
+            kvpair = i.split("=")
+            kvpair[1] = eval(kvpair[1])
             try:
+                if type(kvpair[1]) is str:
+                    kvpair[1] = kvpair[1].replace("_", " ").replace('"', '\\"')
                 workingdict[kvpair[0]] = kvpair[1]
             except IndexError:
                 continue
@@ -223,10 +226,10 @@ class HBNBCommand(cmd.Cmd):
                 return
             for k, v in storage._FileStorage__objects.items():
                 if k.split('.')[0] == args:
-                    print_list.append(str(v))
+                    print_list.append(v.__str__())
         else:
             for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+                print_list.append(v.__str__())
 
         print(print_list)
 
