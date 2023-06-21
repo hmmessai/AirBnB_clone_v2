@@ -49,47 +49,47 @@ class DBStorage():
             """
             Base.metadata.drop_all(self.__engine)
 
-        def all(self, cls=None):
-            """Method returns objects
-            and their classes.
-            """
+    def all(self, cls=None):
+        """Method returns objects
+        and their classes.
+        """
 
-        def new(self, obj):
-            """
-            Method adds new object
-            to current DB session.
-            """
-            self.__session.add(obj)
+    def new(self, obj):
+        """
+        Method adds new object
+        to current DB session.
+        """
+        self.__session.add(obj)
 
-        def save(self):
-            """
-            Method saves all changes
-            made to current DB session.
-            """
-            self.__session.commit()
+    def save(self):
+        """
+        Method saves all changes
+        made to current DB session.
+        """
+        self.__session.commit()
 
-        def delete(self, obj=None):
-            """
-            Method object from
-            current DB session.
-            """
-            if obj is not None:
-                self.__session.delete(obj)
+    def delete(self, obj=None):
+        """
+        Method object from
+        current DB session.
+        """
+        if obj is not None:
+            self.__session.delete(obj)
 
-        def reload(self):
-            """
-            Method creates all DB tables
-            and current database sessions.
-            """
-            Base.metadata.create_all(self.__engine)
+    def reload(self):
+        """
+        Method creates all DB tables
+        and current database sessions.
+        """
+        Base.metadata.create_all(self.__engine)
 
-            session_factory = sessionmaker(bind=self.__engine,
-                               expire_on_commit=False)
-            Session = scoped_session(session_factory)
-            self.__session = Session()
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
+        Session = scoped_session(session_factory)
+        self.__session = Session()
 
-        def close(self):
-            """
-            Close current active session.
-            """
-            self.__session.close()
+    def close(self):
+        """
+        Close current active session.
+        """
+        self.__session.close()
