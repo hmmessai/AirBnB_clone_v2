@@ -138,6 +138,21 @@ class HBNBCommand(cmd.Cmd):
                 workingdict[kvpair[0]] = kvpair[1]
             except IndexError:
                 continue
+        
+        if arglist is None:
+            new_instance = HBNBCommand.classes[cls]()
+            storage.save()
+            print(new_instance.id)
+            storage.save()
+            return
+        
+        for i in arglist:
+            kvpair = i.split(sep='=')
+            try:
+                workingdict[kvpair[0]] = kvpair[1]
+            except IndexError:
+                continue
+
         new_instance = HBNBCommand.classes[cls]()
         new_instance.__dict__.update(workingdict)
         storage.save()
