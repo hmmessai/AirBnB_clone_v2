@@ -127,37 +127,23 @@ class HBNBCommand(cmd.Cmd):
         workingdict = {}
         if arglist is None:
             new_instance = HBNBCommand.classes[cls]()
+            new_instance.save()
             storage.save()
             return
         for i in arglist:
             kvpair = i.split("=")
-            kvpair[1] = eval(kvpair[1])
             try:
+                kvpair[1] = eval(kvpair[1])
                 if type(kvpair[1]) is str:
                     kvpair[1] = kvpair[1].replace("_", " ").replace('"', '\\"')
                 workingdict[kvpair[0]] = kvpair[1]
-            except IndexError:
+            except (IndexError, NameError):
                 continue
-        
-        if arglist is None:
-            new_instance = HBNBCommand.classes[cls]()
-            storage.save()
-            print(new_instance.id)
-            storage.save()
-            return
-        
-        for i in arglist:
-            kvpair = i.split(sep='=')
-            try:
-                workingdict[kvpair[0]] = kvpair[1]
-            except IndexError:
-                continue
-
         new_instance = HBNBCommand.classes[cls]()
         new_instance.__dict__.update(workingdict)
+        new_instance.save()
         storage.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -220,7 +206,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -235,18 +221,18 @@ class HBNBCommand(cmd.Cmd):
         print_list = []
 
         if args:
-            args = args.split(' ')[0]  # remove possible trailing args
+            args = args.split()[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
-                    print_list.append(v.__str__())
+                    print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(v.__str__())
+            for k, v in storage.all().items():
+                print_list.append(str(v))
 
-        print(print_list)
+        print(f"[{', '.join(print_list)}]")
 
     def help_all(self):
         """ Help information for the all command """
