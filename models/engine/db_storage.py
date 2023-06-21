@@ -53,6 +53,24 @@ class DBStorage():
         """Method returns objects
         and their classes.
         """
+        child_classes = {
+                "User": User, "State": State, "Place": Place,
+                "City": City, "Amenity": Amenity, "Review": Review
+                }
+
+        class_objects = {}
+        for key in child_classes:
+            if cls is key:
+                obj_query = self.__session.query(child_classes[key]).all()
+            if cls is child_classes[key]:
+                obj_query = self.__session.query(child_classes[key]).all()
+            if cls is None:
+                obj_query = self.__session.query(child_classes[key]).all()
+                for value in obj_query:
+                    key = value.__class__.__name__ + '.' + value.id
+                    class_objects[key] = value
+
+        return class_objects
 
     def new(self, obj):
         """
