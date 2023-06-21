@@ -21,7 +21,9 @@ class FileStorage:
         if cls is not None:
             new_storage = {}
             for obj_key, objects in FileStorage.__objects.items():
-                if cls == objects.__class__.__name__:
+                if objects.__class__ == cls:
+                    new_storage[obj_key] = objects
+                if objects.__class__.__name__ == cls:
                     new_storage[obj_key] = objects
             return new_storage
 
@@ -64,9 +66,10 @@ class FileStorage:
         """
         if obj is not None:
             obj_key = obj.__class__.__name__ + '.' + obj.id
-        if obj_key in FileStorage.__objects:
-            del FileStorage.__objects[obj_key]
-            self.save()
+            
+            if obj_key in self.__objects:
+                del self.__objects[obj_key]
+                self.save()
 
     def close(self):
         """
