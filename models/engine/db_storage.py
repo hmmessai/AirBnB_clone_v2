@@ -4,6 +4,7 @@ Module transitions FileStorage
 to DBStorage and adds attributes
 for SQLAlchemy.
 """
+import os
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -22,10 +23,10 @@ class DBStorage():
     """
     Creates Database Storage.
     """
-    self.__engine = None
-    self.__session = None
+    __engine = None
+    __session = None
 
-    __init__(self):
+    def __init__(self):
         """
         Extracts user, passwd, host,
         and database values from env
