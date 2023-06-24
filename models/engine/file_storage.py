@@ -30,12 +30,10 @@ class FileStorage:
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
-<<<<<<< HEAD
         FileStorage.__objects.update({obj.to_dict()
-            ['__class__'] + '.' + obj.id: obj})
-=======
-        FileStorage.__objects.update({obj.__class__.__name__ + '.' + obj.id: obj})
->>>>>>> 1a803df (bug fix)
+                                     ['__class__'] + '.' + obj.id: obj})
+        FileStorage.__objects.update({obj.__class__.__name__ + '.'
+                                     + obj.id: obj})
         self.save()
 
     def save(self):
