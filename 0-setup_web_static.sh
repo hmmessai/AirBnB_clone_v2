@@ -13,7 +13,7 @@ sudo mkdir -p /data/web_static/releases/test/
 
 # Create a fake html file to test
 sudo touch /data/web_static/releases/test/index.html
-echo 'Testing!' > /data/web_static/releases/test/index.html
+echo 'Testing!' | tee /data/web_static/releases/test/index.html
 
 # Create symbolic link
 ln -s -f -T /data/web_static/releases/test/ /data/web_static/current
