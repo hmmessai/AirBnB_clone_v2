@@ -16,7 +16,7 @@ sudo touch /data/web_static/releases/test/index.html
 echo 'Testing!' > /data/web_static/releases/test/index.html
 
 # Create symbolic link
-ln -s -f /data/web_static/releases/test/ /data/web_static/current
+ln -s -f -T /data/web_static/releases/test/ /data/web_static/current
 
 # Give ownership to ubuntu user and group
 sudo chown -R ubuntu:ubuntu /data/
