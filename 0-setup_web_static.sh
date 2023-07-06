@@ -5,17 +5,18 @@
 sudo apt-get install nginx
 
 # Make sure the folder /data/web_static/releases exist
-sudo mkdir -p /data/web_staic/releases/test/
-
-# Make sure the folder /data/web_static/shared exists
+sudo mkdir -p /data/
+sudo mkdir -p /data/web_static/
+sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/shared/
+sudo mkdir -p /data/web_static/releases/test/
 
 # Create a fake html file to test
 sudo touch /data/web_static/releases/test/index.html
-sudo echo 'Testing!' > /data/web_static/releases/test/index.html
+echo 'Testing!' > /data/web_static/releases/test/index.html
 
 # Create symbolic link
-sudo ln -s -d /data/web_static/releases/test/ /data/web_static/current
+ln -s -f /data/web_static/releases/test/ /data/web_static/current
 
 # Give ownership to ubuntu user and group
 sudo chown -R ubuntu:ubuntu /data/
