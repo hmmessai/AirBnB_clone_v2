@@ -8,6 +8,7 @@ import os
 
 
 def do_pack():
+    """Creates an archive file from files inside web_static"""
     datentime = str(datetime.now()).split(sep='.')[0]
     datentime = datentime.replace(' ', '').replace(':', '').replace('-', '')
 
