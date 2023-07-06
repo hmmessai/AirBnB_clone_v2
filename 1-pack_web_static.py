@@ -7,14 +7,7 @@ from datetime import datetime
 import os
 
 def do_pack():
-    datentime = str(datetime.datetime.now()).split(sep='.')[0]
+    """Creates a tar file from web_static"""
+    datentime = str(datetime.now()).split(sep='.')[0]
     datentime = datentime.replace(' ', '').replace(':', '').replace('-', '')
-    if not os.path.exists('versions'):
-        local('mkdir -p versions')
-
-    arc_path = 'versions/webstatic{}.tgz'.format(datentime)
-    stat = local('tar -cvzf arc_path web_static'.format(datentime))
-    if stat.succeeded:
-        return arc_path
-    else:
-        return None
+    local('tar -cvzf arc_path web_static'.format(datentime))
