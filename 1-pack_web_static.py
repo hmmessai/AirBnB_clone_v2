@@ -7,6 +7,7 @@ from datetime import datetime
 
 
 def do_pack():
-    datentime = str(datetime.datetime.now()).split(sep='.')[0]
+    """Creates a tar file from web_static"""
+    datentime = str(datetime.now()).split(sep='.')[0]
     datentime = datentime.replace(' ', '').replace(':', '').replace('-', '')
-    local('tar -cvzf versions/web_static{}.tgz web_static'.format(datentime))
+    local('tar -cvzf versions/web_static_{}.tar.gz web_static'.format(datentime))
