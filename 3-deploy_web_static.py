@@ -57,6 +57,9 @@ def do_deploy(archive_path):
     return True
 
 def deploy():
+    """
+    Creates and archive and deploy it to servers
+    """
     path = do_pack()
     if path is None:
         return False
