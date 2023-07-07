@@ -15,8 +15,8 @@ def do_pack():
     if not os.path.exists('versions'):
         local('mkdir -p versions')
 
-    arc_path = 'versions/webstatic{}.tgz'.format(datentime)
-    stat = local('tar -cvzf {} web_static'.format(arc_path))
+    arc_path = 'versions/webstatic_{}.tgz'.format(datentime)
+    stat = local('tar -zcvf {} web_static'.format(arc_path))
     if stat.succeeded:
         return arc_path
     else:
