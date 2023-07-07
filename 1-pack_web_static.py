@@ -12,12 +12,10 @@ def do_pack():
     datentime = str(datetime.now()).split(sep='.')[0]
     datentime = datentime.replace(' ', '').replace(':', '').replace('-', '')
 
-    if not os.path.exists('versions'):
-        local('mkdir -p versions')
-
-    arc_path = 'versions/webstatic_{}.tgz'.format(datentime)
-    stat = local('tar -zcvf {} web_static'.format(arc_path))
-    if stat.succeeded:
-        return arc_path
-    else:
+    if not os.path.isdir('versions'):
+        if local('mkdir -p versions').failed is True:
+            return None
+    arc_path = 'versions/web_static_{}.tgz'.format(datentime)
+    if local('tar -zcvf {} web_static'.format(arc_path)).failed is True:
         return None
+    return arc_path
