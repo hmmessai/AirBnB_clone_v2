@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script that distribures an archive to the web_servers"""
+"""Script that distributes an archive to the web_servers"""
 import os
 from fabric import run, put
 
@@ -7,7 +7,12 @@ env.user = 'ubuntu'
 env.hosts = ['web-01.hmmessai.tech', 'web-02.hmmessai.tech']
 
 def do_deploy(archive_path):
-    """Deploying archive to a remote server"""
+    """
+    Deploying archive to a remote server
+    Arguments:
+        archive_path(str): the path to the archive to 
+            be deployed on the server
+    """
     if not os.path.isfile(archive_path):
         return False
 
