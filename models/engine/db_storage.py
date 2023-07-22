@@ -37,7 +37,7 @@ class DBStorage():
         host = os.environ['HBNB_MYSQL_HOST']
         database = os.environ['HBNB_MYSQL_DB']
 
-        self.__engine = create_engine(f'mysql+mysqldb://{user}:'
+        DBStorage.__engine = create_engine(f'mysql+mysqldb://{user}:'
                                       f'{password}@{host}:3306/'
                                       f'{database}',
                                       pool_pre_ping=True)
@@ -62,8 +62,14 @@ class DBStorage():
         for key in child_classes:
             if cls is key:
                 obj_query = self.__session.query(child_classes[key]).all()
+                for value in obj_query:
+                    key = value.__class__.__name__ + '.' + value.id
+                    class_objects[key] = value
             if cls is child_classes[key]:
                 obj_query = self.__session.query(child_classes[key]).all()
+                for value in obj_query:
+                    key = value.__class__.__name__ + '.' + value.id
+                    class_objects[key] = value
             if cls is None:
                 obj_query = self.__session.query(child_classes[key]).all()
                 for value in obj_query:
@@ -99,9 +105,9 @@ class DBStorage():
         Method creates all DB tables
         and current database sessions.
         """
-        Base.metadata.create_all(self.__engine)
+        Base.metadata.create_all(DBStorage.__engine)
 
-        session_factory = sessionmaker(bind=self.__engine,
+        session_factory = sessionmaker(bind=DBStorage.__engine,
                                        expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
