@@ -9,6 +9,7 @@ import os
 env.user = 'ubuntu'
 env.hosts = ['web-02.hmmessai.tech', 'web-01.hmmessai.tech']
 
+
 def do_pack():
     """Creates an archive file from files inside web_static"""
     datentime = str(datetime.now()).split(sep='.')[0]

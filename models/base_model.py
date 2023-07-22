@@ -50,7 +50,7 @@ class BaseModel:
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
         for k, v in self.to_dict().items():
-            dic ={}
+            dic = {}
             if k == '__class__':
                 dic.update(self.to_dict())
         return '[{}] ({}) {}'.format(cls, self.id, dic)
