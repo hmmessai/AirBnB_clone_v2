@@ -32,7 +32,7 @@ class FileStorage:
         """Adds new object to storage dictionary"""
         if obj:
             key = obj.__class__.__name__ + '.' + obj.id
-            FileStorage.__objects.update({key : obj})
+            FileStorage.__objects.update({key: obj})
             self.save()
 
     def save(self):
