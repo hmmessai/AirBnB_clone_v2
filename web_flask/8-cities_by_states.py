@@ -16,7 +16,7 @@ def cities_by_state():
     and the cities inside the State
     """
     states = storage.all(State)
-    return (render_template("8-cities_by_states", states=states))
+    return (render_template("8-cities_by_states.html", states=states))
     
 
 @app.teardown_appcontext
